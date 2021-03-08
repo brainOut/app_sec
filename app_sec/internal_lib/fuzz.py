@@ -79,5 +79,4 @@ class Fuzz:
 if __name__ == '__main__':
     # http()
     fuzz = Fuzz("127.0.0.1", 21)
-    print(fuzz)
     fuzz.fuzz_http(fuzz.url, fuzz.port)
