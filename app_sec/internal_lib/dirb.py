@@ -17,9 +17,9 @@ def have_inputs(url):
         return False
 
 
-def save_or_return(save_outputs, data):
+def save_or_return(save_outputs, data, file_name):
     if save_outputs:
-        open('test_url.txt', 'w').write(str(data))
+        open('results/'+file_name, 'w').write("\r\n".join(data))
 
     return data
 
@@ -27,11 +27,12 @@ def save_or_return(save_outputs, data):
 class FuzzUrl:
 
     def __init__(self, url, quiet=False):
+        """params url : Url to fetch, quiet: True or False (print or not results)"""
         self.url = url
         self.quiet = quiet
-        self.wordlist = open("wordlist.txt", 'r').readlines()
+        self.wordlist = open("wordlist/url_fuzzer.txt", 'r').readlines()
 
-    def dirchecker(self, with_inputs_only=False, save_outputs=False):
+    def dirchecker(self, with_inputs_only=False, save_outputs=False, filename='chocapic.txt'):
         url_ok = []
         url_with_inputs = []
         for paths in self.wordlist:
@@ -50,11 +51,20 @@ class FuzzUrl:
                 if have_inputs(url):
                     url_with_inputs.append(url)
 
-            save_or_return(save_outputs, url_with_inputs)
+            save_or_return(save_outputs, url_with_inputs, filename)
         else:
-            save_or_return(save_outputs, url_ok)
+            save_or_return(save_outputs, url_ok, filename)
 
 
 if __name__ == "__main__":
     fuzzer = FuzzUrl('127.0.0.1:8000', True)
     fuzzer.dirchecker(True, True)
+
+
+# TODO :
+# 1 - Fuzz url (fait)
+# 2 - scrap de source à la recherche de formulaire (fait)
+# 3 - tentatives de SQLI (à l'aide sqlmap, pas inclut dans le script)
+# 4 - Si sqli OK --> prend les hash et on les crack
+# 5 - Si Sqli KO --> Bruteforce id /pass (rockyou.txt)
+# 6 - Sniff (coke.py) nécessite une backdoor
