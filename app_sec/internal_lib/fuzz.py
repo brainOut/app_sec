@@ -6,7 +6,7 @@ class Fuzz:
         self.url = url
         self.port = port
 
-    def fuzz_http(self, url, port):
+    def fuzz_http(self):
         session = Session(
                 target=Target(connection=TCPSocketConnection(self.url, self.port)),
             )
