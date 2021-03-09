@@ -19,9 +19,8 @@ def have_inputs(url):
 
 def save_or_return(save_outputs, data):
     if save_outputs:
-        file = open('test_url.txt', 'w')
-        file.write(str(data))
-        
+        open('test_url.txt', 'w').write(str(data))
+
     return data
 
 
@@ -32,7 +31,7 @@ class FuzzUrl:
         self.quiet = quiet
         self.wordlist = open("wordlist.txt", 'r').readlines()
 
-    def dirchecker(self, with_inputs_only=False, save_outputs=True):
+    def dirchecker(self, with_inputs_only=False, save_outputs=False):
         url_ok = []
         url_with_inputs = []
         for paths in self.wordlist:
@@ -51,11 +50,11 @@ class FuzzUrl:
                 if have_inputs(url):
                     url_with_inputs.append(url)
 
-            save_or_return(True, url_with_inputs)
+            save_or_return(save_outputs, url_with_inputs)
         else:
-            save_or_return(True, url_ok)
+            save_or_return(save_outputs, url_ok)
 
 
 if __name__ == "__main__":
     fuzzer = FuzzUrl('127.0.0.1:8000', True)
-    fuzzer.dirchecker(True)
+    fuzzer.dirchecker(True, True)
