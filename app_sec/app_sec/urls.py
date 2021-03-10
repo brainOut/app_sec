@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from app_sec import  views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pentest/', include('pentest.urls')),
+    path('upload/', views.upload_file),
+    path('uploaded/', views.upload_file)
 ]
