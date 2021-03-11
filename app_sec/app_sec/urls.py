@@ -21,6 +21,5 @@ from app_sec import  views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pentest/', include('pentest.urls')),
-    path('upload/', views.upload_file),
-    path('uploaded/', views.upload_file)
+    path('upload/', views.upload_file)
 ]
