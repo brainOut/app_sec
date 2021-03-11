@@ -71,15 +71,9 @@ class BruteForcer:
 
                 if BeautifulSoup(r.content, 'html.parser').find(text=re.compile("Welcome")):
                     print("\033[92mCredentials found !! ")
-                    print(f'-user:{user}     -password:{passwd}')
+                    print(f'-user:{user}     -password:{passwd}\033[0m')
                     return True
 
-
-# -------------------------
-# 1 - récuperer les champs depuis le fuzzer OK
-# 2 - faire la requete en POST avec les users/ pass (users.txt et rockyou.txt)
-# 3 - vérifier le retour de la requete (savoir si c'est ok ou ko)
-# user admin // pass azerty
 
 if __name__ == "__main__":
     # s = FuzzUrl('127.0.0.1:8000')
